@@ -1,3 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
-Console.WriteLine("esto es una prueba, hola");
+﻿namespace Proyecto_I
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Conexion.VerTabla(""); //Nombre de la tabla
+            Console.ReadLine();
+        }
+    }
+}
