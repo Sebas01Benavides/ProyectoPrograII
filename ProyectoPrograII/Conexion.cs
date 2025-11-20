@@ -14,8 +14,8 @@ namespace Proyecto_I
             string cadenaConexion =
                 "Server=localhost,1433;" +
                 "Database=Upala_Agricola;" +
-                "User Id=sa;" +
-                "Password=Mari1234;" +
+                "User Id=colaboradores;" +
+                "Password=123;" +
                 "Encrypt=True;" +
                 "TrustServerCertificate=True;";
 

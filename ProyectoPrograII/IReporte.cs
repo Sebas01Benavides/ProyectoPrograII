@@ -8,6 +8,6 @@ namespace Proyecto_I
 {
     internal interface IReporte
     {
-        string GenerarReporte();
+        // string GenerarReporte();
     }
 }

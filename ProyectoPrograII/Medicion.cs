@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Proyecto_I
 {
-    abstract class Medicion: IMedible
+    abstract class Medicion//: Medible
     {
+
     }
 }

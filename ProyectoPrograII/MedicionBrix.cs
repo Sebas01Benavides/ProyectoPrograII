@@ -8,5 +8,6 @@ namespace Proyecto_I
 {
     internal class MedicionBrix:Medicion
     {
+
     }
 }
