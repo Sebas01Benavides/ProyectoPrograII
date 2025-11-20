@@ -59,7 +59,7 @@ namespace Proyecto_I
                                 break;
 
                             case 3:
-
+                                Console.Clear();
                                 mostrarMenuPrincipal = false;
                                 break;
 

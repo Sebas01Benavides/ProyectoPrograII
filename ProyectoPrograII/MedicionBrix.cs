@@ -8,6 +8,6 @@ namespace Proyecto_I
 {
     internal class MedicionBrix:Medicion
     {
-
+        //private int calculoBrix()
     }
 }
