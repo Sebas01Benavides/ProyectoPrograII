@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Proyecto_I
 {
-    internal interface IMedible
+    internal class MedicionBrix:Medicion
     {
-       //string ObtenerUnidadMedida();
-        //double ObtenerValordMedicion();s
-        //DateTime FechaMedicion { get; }
+        //private int calculoBrix()
     }
 }

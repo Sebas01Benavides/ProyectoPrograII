@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto_I
 {
-    internal interface IMedible
+    internal class LotePina:ProductoAgricola
     {
-       //string ObtenerUnidadMedida();
-        //double ObtenerValordMedicion();s
-        //DateTime FechaMedicion { get; }
     }
 }

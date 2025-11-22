@@ -1,6 +1,7 @@
-﻿using ProyectoPrograII;
+﻿using AccesoDatos;
 
-namespace Proyecto_I
+
+namespace Presentacion
 {
     internal class Program
     {
@@ -10,7 +11,7 @@ namespace Proyecto_I
 
             while (continuarSistema)
             {
-                Console.WriteLine("Ingrese su Usuariossfgs:");
+                Console.WriteLine("Ingrese su Usuario:");
                 String usuario = Console.ReadLine();
 
                 Console.WriteLine("Ingrese su Contraseña:");

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Proyecto_I
 {
-    internal interface IMedible
+    abstract class Medicion//: Medible
     {
-       //string ObtenerUnidadMedida();
-        //double ObtenerValordMedicion();s
-        //DateTime FechaMedicion { get; }
+
     }
 }

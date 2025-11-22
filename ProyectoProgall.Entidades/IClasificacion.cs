@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto_I
 {
-    internal interface IMedible
+    internal interface IClasificacion
     {
-       //string ObtenerUnidadMedida();
-        //double ObtenerValordMedicion();s
-        //DateTime FechaMedicion { get; }
     }
 }
