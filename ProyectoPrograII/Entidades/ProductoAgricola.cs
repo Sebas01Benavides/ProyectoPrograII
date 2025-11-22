@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proyecto_I
+namespace ProyectoPrograII.Entidades
 {
-    internal class LotePina:ProductoAgricola
+    abstract class ProductoAgricola
     {
     }
 }

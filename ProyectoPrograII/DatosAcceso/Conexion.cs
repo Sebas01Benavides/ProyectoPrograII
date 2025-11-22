@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
-namespace Proyecto_I
+namespace ProyectoPrograII.DatosAcceso
 {
     internal class Conexion
     {

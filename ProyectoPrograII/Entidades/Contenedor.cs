@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoPrograII.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -6,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Proyecto_I
+namespace ProyectoPrograII.Entidades
 {
     internal class Contenedor:ProductoAgricola,IClasificacion, IReporte
     {

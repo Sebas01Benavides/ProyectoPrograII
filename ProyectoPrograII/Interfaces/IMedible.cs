@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proyecto_I
+namespace ProyectoPrograII.Interfaces
 {
     internal interface IMedible
     {

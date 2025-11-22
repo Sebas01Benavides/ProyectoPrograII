@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proyecto_I
+namespace ProyectoPrograII.Entidades
 {
-    abstract class Medicion//: Medible
+    internal class MedicionBrix:Medicion
     {
-
+        //private int calculoBrix()
     }
 }

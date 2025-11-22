@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proyecto_I
+namespace ProyectoPrograII.Entidades
 {
-    internal interface IReporte
+    internal class LotePina:ProductoAgricola
     {
-        // string GenerarReporte();
     }
 }

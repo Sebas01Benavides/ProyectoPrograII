@@ -1,5 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using Proyecto_I;
+using ProyectoPrograII.DatosAcceso;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectoPrograII
+namespace ProyectoPrograII.Servicios
 {
     internal class Utilidades
     {

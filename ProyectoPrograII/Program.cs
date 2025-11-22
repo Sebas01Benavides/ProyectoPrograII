@@ -1,4 +1,4 @@
-﻿using ProyectoPrograII;
+﻿using ProyectoPrograII.Servicios;
 
 namespace Proyecto_I
 {
@@ -6,28 +6,60 @@ namespace Proyecto_I
     {
         static void Main(string[] args)
         {
-            //Conexion.VerTabla("productosAgricolas"); //Nombre de la tabla
-            //Console.ReadLine();
+
+            bool continuarSistema = true;
 
             while (continuarSistema)
             {
                 Console.WriteLine("Ingrese su Usuariossfgs:");
                 String usuario = Console.ReadLine();
 
-            Console.WriteLine("=== PRUEBA GENERACIÓN DE CARNET ===\n");
+                Console.WriteLine("Ingrese su Contraseña:");
+                String contraseña = Console.ReadLine();
 
-            Contenedor c1 = new Contenedor("", "Atlantico");
-            Console.WriteLine($"Contenedor: {c1.Carnet} | Nombre: {c1.Nombre}");
+                bool ingreso = Utilidades.Acceso(usuario, contraseña);
 
-            Contenedor c2 = new Contenedor("", "Pacifico");
-            Console.WriteLine($"Contenedor: {c2.Carnet} | Nombre: {c2.Nombre}");
+                if (ingreso == true)
+                {
+                    bool mostrarMenuPrincipal = true;
 
-            Contenedor c3 = new Contenedor("", "Oceania");
-            Console.WriteLine($"Contenedor: {c3.Carnet} | Nombre: {c3.Nombre}");
+                    while (mostrarMenuPrincipal)
+                    {
+                        Console.Clear();
+                        int opcion = Utilidades.menu_inicio();
 
-            Console.ReadKey();
+                        switch (opcion)
+                        {
+                            case 1:
+
+                                Console.Clear();
+                                int opcProduccion = Utilidades.menu_produccion();
+
+                                if (opcProduccion == 1)
+                                {
+                                    Console.WriteLine("Control en tiempo real");
+                                    Console.ReadKey();
+                                }
+                                else if (opcProduccion == 2)
+                                {
+                                    Console.WriteLine("Ajuste de rangos");
+                                    Console.ReadKey();
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    break;
+                                }
+
+                                break;
+
+                        }
+
+
+                    }
+                }
+            }
+
         }
-
-
     }
 }

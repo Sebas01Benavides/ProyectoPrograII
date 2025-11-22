@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proyecto_I
+namespace ProyectoPrograII.Entidades
 {
-    internal interface IClasificacion
+    abstract class Medicion//: Medible
     {
+
     }
 }

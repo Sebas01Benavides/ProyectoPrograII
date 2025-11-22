@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proyecto_I
+namespace ProyectoPrograII.Interfaces
 {
-    internal class MedicionBrix:Medicion
+    internal interface IReporte
     {
-        //private int calculoBrix()
+        // string GenerarReporte();
     }
 }
