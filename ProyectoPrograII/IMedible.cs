@@ -8,8 +8,8 @@ namespace Proyecto_I
 {
     internal interface IMedible
     {
-       //string ObtenerUnidadMedida();
-        //double ObtenerValordMedicion();
-        //DateTime FechaMedicion { get; }
+        string ObtenerUnidadMedida();
+        double ObtenerValordMedicion();
+        DateTime FechaMedicion { get; }
     }
 }

@@ -6,78 +6,22 @@ namespace Proyecto_I
     {
         static void Main(string[] args)
         {
-            bool continuarSistema = true;
-
-            while (continuarSistema)
-            {
-                Console.WriteLine("Ingrese su Usuario:");
-                String usuario = Console.ReadLine();
-
-                Console.WriteLine("Ingrese su Contraseña:");
-                String contraseña = Console.ReadLine();
-
-                bool ingreso = Utilidades.Acceso(usuario, contraseña);
-
-                if (ingreso == true)
-                {
-                    bool mostrarMenuPrincipal = true;
-
-                    while (mostrarMenuPrincipal)
-                    {
-                        Console.Clear();
-                        int opcion = Utilidades.menu_inicio();
-
-                        switch (opcion)
-                        {
-                            case 1:
-
-                                    Console.Clear();
-                                    int opcProduccion = Utilidades.menu_produccion();
-
-                                    if (opcProduccion == 1)
-                                    {
-                                        Console.WriteLine("Control en tiempo real");
-                                        Console.ReadKey();
-                                    }
-                                    else if (opcProduccion == 2)
-                                    {
-                                        Console.WriteLine("Ajuste de rangos");
-                                        Console.ReadKey();
-                                    }
-                                    else
-                                    {
-                                        Console.Clear();
-                                        break;
-                                    }
-                               
-                            break;
+            //Conexion.VerTabla("productosAgricolas"); //Nombre de la tabla
+            //Console.ReadLine();
 
 
-                            case 2:
-                                Console.WriteLine("Informe");
-                                Console.ReadKey();
-                                break;
+            Console.WriteLine("=== PRUEBA GENERACIÓN DE CARNET ===\n");
 
-                            case 3:
-                                Console.Clear();
-                                mostrarMenuPrincipal = false;
-                                break;
+            Contenedor c1 = new Contenedor("", "Atlantico");
+            Console.WriteLine($"Contenedor: {c1.Carnet} | Nombre: {c1.Nombre}");
 
-                            default:
-                                Console.WriteLine("Opción inválida.");
-                                Console.ReadKey();
-                                break;
-                        }
-                    }
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("ACCESO DENEGADO");
-                    Console.ReadKey();
-                }
-            }
+            Contenedor c2 = new Contenedor("", "Pacifico");
+            Console.WriteLine($"Contenedor: {c2.Carnet} | Nombre: {c2.Nombre}");
 
+            Contenedor c3 = new Contenedor("", "Oceania");
+            Console.WriteLine($"Contenedor: {c3.Carnet} | Nombre: {c3.Nombre}");
+
+            Console.ReadKey();
         }
 
 
