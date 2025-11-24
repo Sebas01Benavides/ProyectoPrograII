@@ -15,7 +15,7 @@ namespace ProyectoPrograII.Servicios
         public static int menu_inicio()
         {
             Console.WriteLine("----------------------------------------------------------");
-            Console.WriteLine("---------------------Control de Tolbas--------------------");
+            Console.WriteLine("---------------------Control de Tolvas--------------------");
             Console.WriteLine();
             Console.WriteLine("----- 1.Gestion de producción (Calculo Grados brix) ------");
             Console.WriteLine();

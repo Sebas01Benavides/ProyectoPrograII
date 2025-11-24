@@ -36,7 +36,7 @@ namespace ProyectoPrograII.DatosAcceso
         {
             using (SqlConnection con = GetConexion())
             {
-                string query = $"SELECT * FROM {nombreTabla}";
+                string query = $"SELECT * FROM {nombreTabla}"; //Seleccion los datos de la tabla
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -47,7 +47,7 @@ namespace ProyectoPrograII.DatosAcceso
                 {
                     for (int i = 0; i < dr.FieldCount; i++)
                     {
-                        Console.Write($"{dr.GetName(i)}: {dr[i]}  |  ");
+                        Console.Write($"{dr.GetName(i)}: {dr[i]}  |  ");  //ordena los datos de la tabla
                     }
                     Console.WriteLine();
                 }
