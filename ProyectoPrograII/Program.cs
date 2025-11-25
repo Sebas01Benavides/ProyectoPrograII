@@ -1,5 +1,7 @@
-﻿using ProyectoPrograII.DatosAcceso;
+﻿using Microsoft.Data.SqlClient;
+using ProyectoPrograII.DatosAcceso;
 using ProyectoPrograII.Servicios;
+using System;
 
 namespace Proyecto_I
 {
@@ -65,27 +67,74 @@ namespace Proyecto_I
 
             //-------------------------
 
-            Console.WriteLine("-----Rangos de Parametros Brix ----");
+            int opcion = 0;
 
-            Console.Write("Ingrese el mínimo de brix para Exportación: ");
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("---------- MENU PRINCIPAL ----------");
+                Console.WriteLine("1. Establecer Rangos Brix");
+                Console.WriteLine("2. Ver Rangos Brix");
+                Console.WriteLine("3. Salir");
+                Console.WriteLine("-------------------------------------");
+
+                if (!int.TryParse(Console.ReadLine(), out opcion))
+                {
+                    Console.WriteLine("Opción inválida. Presione Enter...");
+                    Console.ReadLine();
+                    continue;
+                }
+
+                switch (opcion)
+                {
+                    case 1:
+                        EstablecerRangos();
+                        break;
+
+                    case 2:
+                        Conexion.VerTabla("ParametrosBrix");
+                        break;
+
+                    case 3:
+                        Console.WriteLine("Saliendo...");
+                        break;
+
+                    default:
+                        Console.WriteLine("Opción no válida.");
+                        break;
+                }
+
+                if (opcion != 3)
+                {
+                    Console.WriteLine("\nPresione Enter para continuar...");
+                    Console.ReadLine();
+                }
+
+            } while (opcion != 3);
+        }
+
+        // --- ESTABLECER RANGOS ---
+        static void EstablecerRangos()
+        {
+            Console.Clear();
+            Console.WriteLine("--- ESTABLECER RANGOS ---");
+
+            Console.Write("Ingrese mínimo para Exportación: ");
             decimal minExport = Convert.ToDecimal(Console.ReadLine());
 
-            Console.Write("Ingrese el mínimo de brix para Jugo: ");
+            Console.Write("Ingrese mínimo para Jugo: ");
             decimal minJugo = Convert.ToDecimal(Console.ReadLine());
 
             bool resultado = GestionBrix.EstablecerRangos(minExport, minJugo);
 
             if (resultado)
             {
-                Console.WriteLine("Los rangos se guardaron correctamente");
+                Console.WriteLine("\n Los rangos se guardaron correctamente.");
             }
             else
             {
-                Console.WriteLine("Hubo un error al guardar los rangos.");
+                Console.WriteLine("\nHubo un error al guardar los rangos.");
             }
-
-            Console.WriteLine("Presione una tecla para salir...");
-            Console.ReadKey();
         }
     }
 }
