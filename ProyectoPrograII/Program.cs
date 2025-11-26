@@ -96,7 +96,7 @@ namespace Proyecto_I
                         break;
 
                     case 3:
-                        Console.WriteLine("Saliendo...");
+                        Utilidades.EjecutarClasificacionTiempoReal();
                         break;
 
                     default:
@@ -136,5 +136,6 @@ namespace Proyecto_I
                 Console.WriteLine("\nHubo un error al guardar los rangos.");
             }
         }
+        
     }
 }

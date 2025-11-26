@@ -8,5 +8,7 @@ namespace ProyectoPrograII.Interfaces
 {
     internal interface IClasificacion
     {
+        decimal CalcularPromedioBrix(decimal[] muestras);
+        string ClasificarDestino(decimal promedioBrix);
     }
 }

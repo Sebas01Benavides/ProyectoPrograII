@@ -9,7 +9,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ProyectoPrograII.Entidades
 {
-    internal class Contenedor:ProductoAgricola,IClasificacion, IReporte
+    internal class Contenedor:IReporte
     {
         private string nombre;
 

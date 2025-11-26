@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using ProyectoPrograII.DatosAcceso;
+using ProyectoPrograII.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -37,7 +38,7 @@ namespace ProyectoPrograII.Servicios
 
         public static int menu_produccion()
         {
-            Console.WriteLine("----------------------------------------------------------");
+            Console.WriteLine("-------------------Gestion Producción---------------------");
             Console.WriteLine();
             Console.WriteLine("----- 1.Clasificación en tiempo real ------");
             Console.WriteLine();
@@ -64,7 +65,7 @@ namespace ProyectoPrograII.Servicios
             {
                 if (con.State == ConnectionState.Closed)
                 {
-                    con.Open(); 
+                    con.Open();
                 }
 
 
@@ -80,20 +81,77 @@ namespace ProyectoPrograII.Servicios
                     int existe = (int)cmd.ExecuteScalar();
                     if (existe > 0)
                     {
-                        
-                        return true; 
+
+                        return true;
                     }
                     else
                     {
-                        return false; 
+                        return false;
                     }
                 }
 
 
             }
-         
+
         }
 
+
+        public static void EjecutarClasificacionTiempoReal()
+        {
+            Console.Clear();
+            Console.WriteLine("----------------------------------------------------------");
+            Console.WriteLine("-       CLASIFICACIÓN EN TIEMPO REAL - GRADOS BRIX       -");
+            Console.WriteLine("----------------------------------------------------------\n");
+
+            try
+            {
+                Console.Write("Ingrese el número de serie de la tolva: ");
+                string identificadorTolva = Console.ReadLine();
+
+                decimal[] muestras = new decimal[5];
+                Console.WriteLine("\nIngrese las mediciones de las 5 muestras de piñas:");
+
+                for (int i = 0; i < 5; i++)
+                {
+                    bool entradaValida = false;
+                    while (!entradaValida)
+                    {
+                        Console.Write($"  Muestra {i + 1} (°Brix): ");
+                        string entrada = Console.ReadLine();
+
+                        if (decimal.TryParse(entrada, out decimal valor) && valor >= 0)
+                        {
+                            muestras[i] = valor;
+                            entradaValida = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("  Entrada inválida. Ingrese un número válido mayor o igual a 0.");
+                        }
+                    }
+                }
+
+                MedicionBrix medicion = new MedicionBrix();
+                bool exito = medicion.ProcesarMedicionCompleta(identificadorTolva, muestras);
+
+                if (exito)
+                {
+                    medicion.MostrarResultados();
+                    Console.WriteLine(" Medición procesada y guardada exitosamente.");
+                }
+                else
+                {
+                    Console.WriteLine(" Error al procesar la medición.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\n✗ Error: {ex.Message}");
+            }
+
+            Console.WriteLine("\nPresione Enter para continuar...");
+            Console.ReadLine();
+        }
     }
 
 }
