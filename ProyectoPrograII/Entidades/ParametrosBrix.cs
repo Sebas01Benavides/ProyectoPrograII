@@ -34,10 +34,12 @@ namespace ProyectoPrograII.Entidades
         public decimal RangoMinimo { get => rangoMinimo; set => rangoMinimo = value; }
         public string Destino { get => destino; set => destino = value; }
 
-        // Método para mostrar la información
+
         public override string ToString()
         {
             return $"{Destino}: {RangoMinimo}°Brix - {RangoMaximo}°Brix";
         }
+
+
     }
 }

@@ -13,12 +13,24 @@ namespace ProyectoPrograII.Servicios
     internal class Utilidades
     {
 
+
+        
+    // Método para escribir texto con color
+    public static void EscribirConColor(string texto, ConsoleColor color = ConsoleColor.Cyan)
+        {
+            ConsoleColor colorOriginal = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            Console.Write(texto);
+            Console.ForegroundColor = colorOriginal;
+        }
+
+
         public static int menu_inicio()
         {
             Console.WriteLine("----------------------------------------------------------");
-            Console.WriteLine("---------------------Control de Tolvas--------------------");
+            Utilidades.EscribirConColor("\n---------------------CONTROL TOLVAS--------------------", ConsoleColor.DarkCyan);
             Console.WriteLine();
-            Console.WriteLine("----- 1.Gestion de producción (Calculo Grados brix) ------");
+            Console.WriteLine("\n----- 1.Gestion de producción (Calculo Grados brix) ------");
             Console.WriteLine();
             Console.WriteLine("----- 2.Informe  ------");
             Console.WriteLine();
@@ -38,9 +50,9 @@ namespace ProyectoPrograII.Servicios
 
         public static int menu_produccion()
         {
-            Console.WriteLine("-------------------Gestion Producción---------------------");
+            Utilidades.EscribirConColor("\n-------------------GESTION DE PRODUCCIÓN---------------------", ConsoleColor.DarkCyan);
             Console.WriteLine();
-            Console.WriteLine("----- 1.Clasificación en tiempo real ------");
+            Console.WriteLine("\n----- 1.Clasificación en tiempo real ------");
             Console.WriteLine();
             Console.WriteLine("----- 2.Ajustar Rangos del calculo grados brix  ------");
             Console.WriteLine();
@@ -100,8 +112,8 @@ namespace ProyectoPrograII.Servicios
         {
             Console.Clear();
             Console.WriteLine("----------------------------------------------------------");
-            Console.WriteLine("-       CLASIFICACIÓN EN TIEMPO REAL - GRADOS BRIX       -");
-            Console.WriteLine("----------------------------------------------------------\n");
+            Utilidades.EscribirConColor("-       CLASIFICACIÓN EN TIEMPO REAL - GRADOS BRIX       -", ConsoleColor.DarkCyan);
+            Console.WriteLine("\n----------------------------------------------------------\n");
 
             try
             {
@@ -116,7 +128,7 @@ namespace ProyectoPrograII.Servicios
                     bool entradaValida = false;
                     while (!entradaValida)
                     {
-                        Console.Write($"  Muestra {i + 1} (°Brix): ");
+                        Console.Write($"  Muestra {i + 1} (Brix): ");
                         string entrada = Console.ReadLine();
 
                         if (decimal.TryParse(entrada, out decimal valor) && valor >= 0)
@@ -126,7 +138,7 @@ namespace ProyectoPrograII.Servicios
                         }
                         else
                         {
-                            Console.WriteLine("  Entrada inválida. Ingrese un número válido mayor o igual a 0.");
+                            Console.WriteLine("  Ingrese un número válido mayor o igual a 0.");
                         }
                     }
                 }
@@ -146,12 +158,93 @@ namespace ProyectoPrograII.Servicios
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"\n✗ Error: {ex.Message}");
+                Console.WriteLine($"\n Error: {ex.Message}");
             }
 
             Console.WriteLine("\nPresione Enter para continuar...");
             Console.ReadLine();
         }
+
+
+        public static void EstablecerRangos()
+        {
+            Console.Clear();
+            Utilidades.EscribirConColor("--- ESTABLECER RANGOS ---", ConsoleColor.DarkCyan);
+
+            Console.Write("\nIngrese mínimo para Exportación: ");
+            decimal minExport = Convert.ToDecimal(Console.ReadLine());
+
+            Console.Write("Ingrese mínimo para Jugo: ");
+            decimal minJugo = Convert.ToDecimal(Console.ReadLine());
+
+            bool resultado = GestionBrix.EstablecerRangos(minExport, minJugo);
+
+            if (resultado)
+            {
+                Console.WriteLine("\n Los rangos se guardaron correctamente.");
+            }
+            else
+            {
+                Console.WriteLine("\nHubo un error al guardar los rangos.");
+            }
+
+        }
+
+
+
+        public static void RangosBrix()
+        {
+            int opcion = 0;
+
+            do
+            {
+                Console.Clear();
+                Utilidades.EscribirConColor("\n---------- MENU RANGOS ----------", ConsoleColor.DarkCyan);
+                Console.WriteLine("\n1. Establecer Rangos Brix");
+                Console.WriteLine("2. Ver Rangos Brix");
+                Console.WriteLine("3. Salir");
+                Console.WriteLine("-------------------------------------");
+
+                if (!int.TryParse(Console.ReadLine(), out opcion))
+                {
+                    Console.WriteLine("Opción inválida. Presione Enter...");
+                    Console.ReadLine();
+                    continue;
+                }
+
+                switch (opcion)
+                {
+                    case 1:
+                        Utilidades.EstablecerRangos();
+                        break;
+
+                    case 2:
+                        Conexion.VerTabla("ParametrosBrix");
+                        break;
+
+                    case 3:
+                        Console.WriteLine("Volviendo a menu principal");
+                        break;
+
+                    default:
+                        Console.WriteLine("Opción no válida.");
+                        break;
+                }
+
+                if (opcion != 3)
+                {
+                    Console.WriteLine("\nPresione Enter para continuar...");
+                    Console.ReadLine();
+                }
+
+            } while (opcion != 3);
+        }
+
+
+
     }
+
+
+
 
 }

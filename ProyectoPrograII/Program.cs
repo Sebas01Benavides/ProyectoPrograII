@@ -1,7 +1,9 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Identity.Client;
 using ProyectoPrograII.DatosAcceso;
 using ProyectoPrograII.Servicios;
 using System;
+using System.ComponentModel;
 
 namespace Proyecto_I
 {
@@ -9,133 +11,111 @@ namespace Proyecto_I
     {
         static void Main(string[] args)
         {
+            bool continuarSistema = true;
 
-            /* bool continuarSistema = true;
-
-             while (continuarSistema)
-             {
-                 Console.WriteLine("Ingrese su Usuariossfgs:");
-                 String usuario = Console.ReadLine();
-
-                 Console.WriteLine("Ingrese su Contraseña:");
-                 String contraseña = Console.ReadLine();
-
-                 bool ingreso = Utilidades.Acceso(usuario, contraseña);
-
-                 if (ingreso == true)
-                 {
-                     bool mostrarMenuPrincipal = true;
-
-                     while (mostrarMenuPrincipal)
-                     {
-                         Console.Clear();
-                         int opcion = Utilidades.menu_inicio();
-
-                         switch (opcion)
-                         {
-                             case 1:
-
-                                 Console.Clear();
-                                 int opcProduccion = Utilidades.menu_produccion();
-
-                                 if (opcProduccion == 1)
-                                 {
-                                     Console.WriteLine("Control en tiempo real");
-                                     Console.ReadKey();
-                                 }
-                                 else if (opcProduccion == 2)
-                                 {
-                                     Console.WriteLine("Ajuste de rangos");
-                                     Console.ReadKey();
-                                 }
-                                 else
-                                 {
-                                     Console.Clear();
-                                     break;
-                                 }
-
-                                 break;
-
-                         }
-
-
-                     }
-                 }
-             }
-
-         */
-
-            //-------------------------
-
-            int opcion = 0;
-
-            do
+            while (continuarSistema)
             {
                 Console.Clear();
-                Console.WriteLine("---------- MENU PRINCIPAL ----------");
-                Console.WriteLine("1. Establecer Rangos Brix");
-                Console.WriteLine("2. Ver Rangos Brix");
-                Console.WriteLine("3. Salir");
-                Console.WriteLine("-------------------------------------");
+                Utilidades.EscribirConColor("\n----SISTEMA DE CLASIFICACIÓN POR TOLVA---", ConsoleColor.DarkCyan);
 
-                if (!int.TryParse(Console.ReadLine(), out opcion))
+                Console.Write("\nIngrese su Usuario: ");
+                string usuario = Console.ReadLine();
+                Console.Write("Ingrese su Contraseña: ");
+                string contraseña = Console.ReadLine();
+
+                bool ingreso = Utilidades.Acceso(usuario, contraseña);
+
+                if (ingreso)
                 {
-                    Console.WriteLine("Opción inválida. Presione Enter...");
-                    Console.ReadLine();
-                    continue;
-                }
+                    bool mostrarMenuPrincipal = true;
 
-                switch (opcion)
+                    while (mostrarMenuPrincipal)
+                    {
+                        Console.Clear();
+                        int opcion = Utilidades.menu_inicio();
+
+                        switch (opcion)
+                        {
+                            case 1: 
+                                Console.Clear();
+                                int opcProduccion = Utilidades.menu_produccion();
+
+                                if (opcProduccion == 1)
+                                {
+                                    bool continuar = true;
+
+                                    while (continuar)
+                                    {
+                                        Utilidades.EjecutarClasificacionTiempoReal();
+
+                                        Utilidades.EscribirConColor("\n¿Desea continuar con una siguiente tolva?",ConsoleColor.DarkCyan);
+                                        Console.WriteLine("\n1 - Si");
+                                        Console.WriteLine("2 - No");
+                                        Console.Write("Opción: ");
+                                        string entrada = Console.ReadLine();
+
+                                        if (entrada == "1")
+                                        {
+                                            continuar = true;
+                                        }
+                                        else if (entrada == "2")
+                                        {
+                                            continuar = false;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Opción no válida. Intente nuevamente.");
+                                        }
+                                    }
+
+                                    Console.WriteLine("\nPresione cualquier tecla para continuar...");
+                                    Console.ReadKey();
+                                }
+                                else if (opcProduccion == 2)
+                                {
+                                    Utilidades.RangosBrix();
+                                    Console.WriteLine("\nPresione cualquier tecla para continuar...");
+                                    Console.ReadKey();
+                                }
+                                else
+                                {
+                                    
+                                    Console.WriteLine("Regresando al menú principal...");
+                                }
+                                break;
+
+                            case 2:
+                                Utilidades.EscribirConColor("SEBASTIAN PENDIENTE DE DESAROLLAR INFORMES",ConsoleColor.Red);
+                                Console.WriteLine("\nPresione cualquier tecla para continuar...");
+                                Console.ReadKey();
+                                break;
+
+
+                            case 3: 
+                                mostrarMenuPrincipal = false;
+                                continuarSistema = false;
+                                Console.WriteLine("Saliendo del sistema...");
+                                break;
+
+                            default:
+                                Console.WriteLine("Opción no válida.");
+                                Console.ReadKey();
+                                break;
+                        }
+                    }
+                }
+                else
                 {
-                    case 1:
-                        EstablecerRangos();
-                        break;
-
-                    case 2:
-                        Conexion.VerTabla("ParametrosBrix");
-                        break;
-
-                    case 3:
-                        Utilidades.EjecutarClasificacionTiempoReal();
-                        break;
-
-                    default:
-                        Console.WriteLine("Opción no válida.");
-                        break;
+                    Console.WriteLine("\n Usuario o contraseña incorrectos.");
+                    Console.WriteLine("Presione cualquier tecla para intentar nuevamente...");
+                    Console.ReadKey();
                 }
-
-                if (opcion != 3)
-                {
-                    Console.WriteLine("\nPresione Enter para continuar...");
-                    Console.ReadLine();
-                }
-
-            } while (opcion != 3);
-        }
-
-        // --- ESTABLECER RANGOS ---
-        static void EstablecerRangos()
-        {
-            Console.Clear();
-            Console.WriteLine("--- ESTABLECER RANGOS ---");
-
-            Console.Write("Ingrese mínimo para Exportación: ");
-            decimal minExport = Convert.ToDecimal(Console.ReadLine());
-
-            Console.Write("Ingrese mínimo para Jugo: ");
-            decimal minJugo = Convert.ToDecimal(Console.ReadLine());
-
-            bool resultado = GestionBrix.EstablecerRangos(minExport, minJugo);
-
-            if (resultado)
-            {
-                Console.WriteLine("\n Los rangos se guardaron correctamente.");
             }
-            else
-            {
-                Console.WriteLine("\nHubo un error al guardar los rangos.");
-            }
+
+            Utilidades.EscribirConColor("\nGracias por usar el sistema. ¡Hasta pronto <3 !", ConsoleColor.DarkGray);
         }
-        
     }
 }
+
+           
+

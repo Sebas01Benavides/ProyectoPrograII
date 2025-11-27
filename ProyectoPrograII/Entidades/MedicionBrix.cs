@@ -1,57 +1,58 @@
 ﻿using Microsoft.Data.SqlClient;
 using ProyectoPrograII.DatosAcceso;
+using ProyectoPrograII.Entidades;
 using ProyectoPrograII.Interfaces;
+using ProyectoPrograII.Servicios;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ProyectoPrograII.Entidades;
 
 namespace ProyectoPrograII.Entidades
 {
-        internal class MedicionBrix : IClasificacion
+    internal class MedicionBrix : IClasificacion
+    {
+        private string identificadorTolva;
+        private decimal[] muestrasBrix;
+        private decimal promedioBrix;
+        private string destinoFinal;
+
+        public MedicionBrix()
         {
-            private string identificadorTolva;
-            private decimal[] muestrasBrix;
-            private decimal promedioBrix;
-            private string destinoFinal;
+            identificadorTolva = string.Empty;
+            muestrasBrix = new decimal[5];
+            promedioBrix = 0;
+            destinoFinal = string.Empty;
+        }
 
-            public MedicionBrix()
-            {
-                identificadorTolva = string.Empty;
-                muestrasBrix = new decimal[5];
-                promedioBrix = 0;
-                destinoFinal = string.Empty;
-            }
-           
-            
-            public string IdentificadorTolva
+
+        public string IdentificadorTolva
         {
-                get => IdentificadorTolva;
-                set => IdentificadorTolva = value;
-            }
+            get => identificadorTolva;
+            set => identificadorTolva = value;
+        }
 
-            public decimal[] MuestrasBrix
-            {
-                get => muestrasBrix;
-                set => muestrasBrix = value;
-            }
+        public decimal[] MuestrasBrix
+        {
+            get => muestrasBrix;
+            set => muestrasBrix = value;
+        }
 
-            public decimal PromedioBrix
-            {
-                get => promedioBrix;
-                set => promedioBrix = value;
-            }
+        public decimal PromedioBrix
+        {
+            get => promedioBrix;
+            set => promedioBrix = value;
+        }
 
-            public string DestinoFinal
-            {
-                get => destinoFinal;
-                set => destinoFinal = value;
-            }
+        public string DestinoFinal
+        {
+            get => destinoFinal;
+            set => destinoFinal = value;
+        }
 
-            public decimal CalcularPromedioBrix(decimal[] muestras)
+        public decimal CalcularPromedioBrix(decimal[] muestras)
         {
             if (muestras == null || muestras.Length != 5)
             {
@@ -109,7 +110,7 @@ namespace ProyectoPrograII.Entidades
             return destino;
         }
 
-        public bool ProcesarMedicionCompleta(string IdentificadorTolba, decimal[] muestras)
+        public bool ProcesarMedicionCompleta(string IdentificadorTolva, decimal[] muestras)
         {
             try
             {
@@ -180,7 +181,7 @@ namespace ProyectoPrograII.Entidades
                     }
 
                     string query = @"INSERT INTO ClasificacionesFinales 
-                                    (identificador_lote, promedio_brix, destino, fecha_clasificacion) 
+                                    (identificador_tolva, promedio_brix, destino, fecha_clasificacion) 
                                     VALUES (@identificador_tolva, @promedio_brix, @destino, GETDATE())";
 
                     using (SqlCommand cmd = new SqlCommand(query, con))
@@ -201,21 +202,20 @@ namespace ProyectoPrograII.Entidades
             }
         }
 
+
         public void MostrarResultados()
         {
             Console.WriteLine("\n--------------------------------------------------------");
-            Console.WriteLine("-          RESULTADOS DE MEDICIÓN BRIX                   -");
-            Console.WriteLine("-----------------------------------------------------------");
+            Utilidades.EscribirConColor("-          RESULTADOS DE MEDICIÓN BRIX                   -", ConsoleColor.DarkCyan);
+            Console.WriteLine("\n-----------------------------------------------------------");
             Console.WriteLine($"  Número de Serie Tolva: {IdentificadorTolva}");
             Console.WriteLine($"  Fecha: {DateTime.Now:dd/MM/yyyy HH:mm:ss}");
-            Console.WriteLine("\n  Muestras individuales:");
-            for (int i = 0; i < muestrasBrix.Length; i++)
-            {
-                Console.WriteLine($"    Muestra {i + 1}: {muestrasBrix[i]:F2}°Brix");
-            }
-            Console.WriteLine($"\n  ► Promedio Brix: {PromedioBrix:F2}°Brix");
-            Console.WriteLine($"  ► Destino: {DestinoFinal}");
-            Console.WriteLine("----------------------------------------------------------\n");
+            Console.WriteLine($"  Promedio Brix: {PromedioBrix:F2}°Brix");
+            Utilidades.EscribirConColor($"  Destino: {DestinoFinal}", ConsoleColor.Cyan);
+            Console.WriteLine("\n----------------------------------------------------------\n");
         }
+
+
+       
     }
-    }
+}
