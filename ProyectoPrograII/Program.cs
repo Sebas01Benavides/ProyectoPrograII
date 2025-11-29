@@ -85,9 +85,7 @@ namespace Proyecto_I
                                 break;
 
                             case 2:
-                                Utilidades.EscribirConColor("SEBASTIAN PENDIENTE DE DESAROLLAR INFORMES",ConsoleColor.Red);
-                                Console.WriteLine("\nPresione cualquier tecla para continuar...");
-                                Console.ReadKey();
+                                Utilidades.MenuInformes();
                                 break;
 
 

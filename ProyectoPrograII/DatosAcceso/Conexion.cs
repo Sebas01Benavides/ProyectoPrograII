@@ -12,7 +12,7 @@ namespace ProyectoPrograII.DatosAcceso
         public static SqlConnection GetConexion()
         {
             string cadenaConexion =
-                "Server=localhost,1433;" +
+                "Server=localhost,1433;;" + //localhost,1433; //localhost\\SQLEXPRESS;
                 "Database=Upala_Agricola;" +
                 "User Id=colaboradores;" +
                 "Password=123;" +

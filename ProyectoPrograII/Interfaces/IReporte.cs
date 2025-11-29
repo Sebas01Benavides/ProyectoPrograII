@@ -8,6 +8,6 @@ namespace ProyectoPrograII.Interfaces
 {
     internal interface IReporte
     {
-        // string GenerarReporte();
+        void GenerarReporte();
     }
 }

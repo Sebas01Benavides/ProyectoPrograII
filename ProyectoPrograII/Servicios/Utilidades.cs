@@ -242,9 +242,50 @@ namespace ProyectoPrograII.Servicios
 
 
 
+    
+
+    public static void MenuInformes()
+    {
+        int opcion= 0;
+        while (opcion !=3)
+            {  Console.Clear();
+            Utilidades.EscribirConColor("\n----------  INFORMES ----------", ConsoleColor.DarkCyan);
+            Console.WriteLine("\n1. Informe por fecha");
+            Console.WriteLine("2. Informe por tolva");
+            Console.WriteLine("3. Volver");
+            Console.WriteLine("----------------------------------");
+            Console.Write("Opción: ");
+            opcion = Convert.ToInt32(Console.ReadLine());
+
+                if (opcion == 1)
+                {
+                    Console.Clear();
+                    Console.Write("Fecha inicio (dd/MM/yyyy): ");
+                    DateTime inicio = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", null);
+
+                    Console.Write("Fecha fin (dd/MM/yyyy): ");
+                    DateTime fin = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", null);
+
+                    ReportePorFecha reporte = new ReportePorFecha(inicio, fin);
+                    reporte.GenerarReporte();
+
+                    Console.WriteLine("\nPresione Enter...");
+                    Console.ReadLine();
+                }
+                else if (opcion == 2)
+                {
+                    Console.Clear();
+                    Console.Write("Numero de tolva: ");
+                    string tolva = Console.ReadLine();
+
+                    ReportePorTolva reporte = new ReportePorTolva(tolva);
+                    reporte.GenerarReporte();
+
+                    Console.WriteLine("\nPresione Enter...");
+                    Console.ReadLine();
+                }
+            }
+        }
+
+    } 
     }
-
-
-
-
-}
