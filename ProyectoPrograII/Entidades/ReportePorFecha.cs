@@ -12,34 +12,31 @@ namespace ProyectoPrograII.Entidades
 {
     internal class ReportePorFecha : IReporte
     {
-        private DateTime fechaInicio;
-        private DateTime fechaFin;
-        public ReportePorFecha(DateTime fechaInicio, DateTime fechaFin)
-        {
-            this.fechaInicio = fechaInicio;
-            this.fechaFin = fechaFin;
-    }
+        private DateTime fecha;  // Solo una fecha
 
-    public void GenerarReporte()
+        public ReportePorFecha(DateTime fecha)  // Solo recibe una fecha
+        {
+            this.fecha = fecha;
+        }
+
+        public void GenerarReporte()
         {
             Console.Clear();
             Console.WriteLine("=======================================================");
             Utilidades.EscribirConColor("REPORTE POR FECHA", ConsoleColor.DarkCyan);
             Console.WriteLine("\n=======================================================");
-            Console.WriteLine($"Del: {fechaInicio:dd/MM/yyyy} al {fechaFin:dd/MM/yyyy}");
+            Console.WriteLine($"Fecha: {fecha:dd/MM/yyyy}");  // Solo muestra una fecha
             Console.WriteLine("=======================================================\n");
 
             SqlConnection con = Conexion.GetConexion();
 
             string query = @"SELECT identificador_tolva, promedio_brix, destino, fecha_clasificacion
                             FROM ClasificacionesFinales
-                            WHERE CAST(fecha_clasificacion AS DATE) >= @fechaInicio 
-                            AND CAST(fecha_clasificacion AS DATE) <= @fechaFin
+                            WHERE CAST(fecha_clasificacion AS DATE) = @fecha
                             ORDER BY fecha_clasificacion DESC";
 
             SqlCommand cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio.Date);
-            cmd.Parameters.AddWithValue("@fechaFin", fechaFin.Date);
+            cmd.Parameters.AddWithValue("@fecha", fecha.Date);  // Solo una fecha
 
             SqlDataReader dr = cmd.ExecuteReader();
 
@@ -56,7 +53,7 @@ namespace ProyectoPrograII.Entidades
                 string tolva = dr["identificador_tolva"].ToString();
                 decimal brix = Convert.ToDecimal(dr["promedio_brix"]);
                 string destino = dr["destino"].ToString();
-                DateTime fecha = Convert.ToDateTime(dr["fecha_clasificacion"]);
+                DateTime fechaClasif = Convert.ToDateTime(dr["fecha_clasificacion"]);
 
                 // contar por destino
                 if (destino == "Exportacion") exportacion++;
@@ -66,7 +63,7 @@ namespace ProyectoPrograII.Entidades
                 Console.WriteLine($"Tolva: {tolva}");
                 Console.WriteLine($"Brix: {brix:F2}°");
                 Console.WriteLine($"Destino: {destino}");
-                Console.WriteLine($"Fecha: {fecha:dd/MM/yyyy HH:mm}");
+                Console.WriteLine($"Fecha: {fechaClasif:dd/MM/yyyy HH:mm}");
                 Console.WriteLine("-------------------------------------------------------");
             }
 
