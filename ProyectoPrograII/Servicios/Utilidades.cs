@@ -83,7 +83,7 @@ namespace ProyectoPrograII.Servicios
 
                 string query = @"SELECT COUNT(*) 
                              FROM inicio_sesion 
-                             WHERE nombreUsuario = @usuario AND contraseña = contraseña";
+                             WHERE nombreUsuario = @usuario AND contraseña = @contraseña";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -263,8 +263,8 @@ namespace ProyectoPrograII.Servicios
                 if (opcion == 1)
                 {
                     Console.Clear();
-                    Console.Write("Fecha (dd/MM/yyyy): ");  // Solo pide una fecha
-                    DateTime fecha = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", null);
+                    Console.Write("Fecha (yyyy/MM/dd): ");  // Solo pide una fecha
+                    DateTime fecha = DateTime.ParseExact(Console.ReadLine(), "yyyy/MM/dd", null);
 
                     ReportePorFecha reporte = new ReportePorFecha(fecha);  // Solo pasa una fecha
                     reporte.GenerarReporte();
